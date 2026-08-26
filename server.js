@@ -1,17 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
+// Load environment variables BEFORE importing routes/services
+dotenv.config();
+
 const authRoutes = require("./routes/authRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const budgetRoutes = require("./routes/budgetRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
-
+const aiRoutes = require("./routes/aiRoutes");
 
 const connectDB = require("./config/db");
-
-dotenv.config();
 
 const app = express();
 
@@ -22,13 +24,14 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-//Routes
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/budget", budgetRoutes);
 app.use("/api/profile", profileRoutes);
-app.use( "/api/notifications", notificationRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
